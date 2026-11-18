@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Code Review Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">CR</div>
+    <div>
+      <div class="brand-title">CodeReview</div>
+      <div class="brand-subtitle">AI Code Review Assistant</div>
+    </div>
+    <div class="top-status"><span class="status-dot"></span> Prototype mode</div>
+  </header>
+
+  <main class="layout">
+    <section class="intro">
+      <p class="eyebrow">HUMAN–AI INTERACTION PROJECT</p>
+      <h1>Review AI-generated code<br><span>before you trust it.</span></h1>
+      <p class="intro-copy">Inspect a code suggestion, understand possible issues, and make your own decision.</p>
+    </section>
+
+    <section class="workspace">
+      <div class="panel editor-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="step-label">01 / INPUT</span>
+            <h2>Code suggestion</h2>
+          </div>
+          <span class="file-tag">Python</span>
+        </div>
+        <label for="codeInput" class="field-label">Paste AI-generated Python code</label>
+        <textarea id="codeInput" spellcheck="false">def calculate_average(numbers):
+    return total / len(numbers)</textarea>
+        <div class="editor-footer">
+          <span>Tip: try the example, or enter your own Python snippet.</span>
+          <button id="analyseButton" class="primary-button">Analyse code <span>→</span></button>
+        </div>
+        <div class="demo-note">This prototype uses simulated checks. Submitted code is not executed.</div>
+      </div>
+
+      <div class="panel results-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="step-label">02 / FEEDBACK</span>
+            <h2>Review results</h2>
+          </div>
+          <span id="resultBadge" class="result-badge neutral">Awaiting analysis</span>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">⌕</div>
+          <h3>Ready to review</h3>
+          <p>Analyse the code to see an explanation, potential issues and a simulated test result.</p>
+        </div>
+
+        <div id="resultsContent" class="results-content hidden">
+          <div class="result-block">
+            <h3><span class="block-icon">✦</span> Code explanation</h3>
+            <p id="explanationText"></p>
+          </div>
+          <div class="result-block">
+            <h3><span class="block-icon">▣</span> Test feedback</h3>
+            <div id="testStatus" class="test-status"></div>
+            <p class="muted small">Illustrative static checks only. The submitted code is not executed and these are not real unit tests.</p>
+            <div id="checksList" class="checks-list"></div>
+          </div>
+          <div class="result-block">
+            <h3><span class="block-icon">⚑</span> Potential issues</h3>
+            <div id="issuesList"></div>
+          </div>
+          <p id="summaryText" class="summary-text"></p>
+          <div class="decision-area">
+            <h3>Your decision</h3>
+            <p>Use the feedback to decide what to do with this suggestion.</p>
+            <div class="decision-buttons">
+              <button class="decision-button accept" data-decision="Accepted">Accept</button>
+              <button class="decision-button reject" data-decision="Rejected">Reject</button>
+              <button class="decision-button edit" data-decision="Needs editing">Edit</button>
+            </div>
+            <p id="decisionMessage" class="decision-message" aria-live="polite"></p>
+          </div>
+          <div class="decision-history">
+            <div class="history-heading">
+              <h3>Decision history</h3>
+              <button id="clearHistoryButton" class="clear-button" type="button">Clear history</button>
+            </div>
+            <p class="muted small">Decisions are saved in this browser only (local storage), not uploaded to a server.</p>
+            <div id="historyList" class="history-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>AI Code Review Assistant · Student project prototype</span>
+      <span>Simulated analysis · Not a production code-security tool</span>
+    </footer>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
